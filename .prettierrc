@@ -1,0 +1,8 @@
+{
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "$schema": "http://json.schemastore.org/prettierrc",
+  "proseWrap": "always",
+  "singleQuote": true,
+  "tabWidth": 4,
+  "useTabs": true
+}
