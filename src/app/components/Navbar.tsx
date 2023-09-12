@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 function Navbar() {
 	const searchParams = useSearchParams();
 	const todosFilter = searchParams.get('todos');
-	console.log('navbar ' + todosFilter);
+
 	return (
 		<nav className="mb-4 flex items-center justify-between">
 			<Link className={todosFilter === null ? 'underline' : ''} href="/">

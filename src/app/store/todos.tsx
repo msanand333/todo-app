@@ -15,7 +15,10 @@ export type TodosContext = {
 };
 export const todosContext = React.createContext<TodosContext | null>(null);
 export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
-	const [todos, setTodos] = React.useState<Todo[]>([]);
+	const [todos, setTodos] = React.useState<Todo[]>(() => {
+		const newTodos = localStorage.getItem('todos') || '[]';
+		return JSON.parse(newTodos) as Todo[];
+	});
 
 	//Adds the todo to the list
 	const handleAddTodo = (task: string) => {
@@ -30,6 +33,7 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
 				},
 				...prev,
 			];
+			localStorage.setItem('todos', JSON.stringify(newTodos));
 			return newTodos;
 		});
 	};
@@ -43,6 +47,7 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
 				}
 				return task;
 			});
+			localStorage.setItem('todos', JSON.stringify(newTodos));
 			return newTodos;
 		});
 	};
@@ -52,6 +57,7 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
 		console.log(id);
 		setTodos((prev) => {
 			const newTodos = prev.filter((task) => task.id !== id);
+			localStorage.setItem('todos', JSON.stringify(newTodos));
 			return newTodos;
 		});
 	};

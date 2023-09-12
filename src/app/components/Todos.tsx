@@ -1,11 +1,23 @@
 'use client';
 import React from 'react';
 import { useTodos } from '../store/todos';
+import { useSearchParams } from 'next/navigation';
 
 function Todos() {
 	const { todos, toggleTodoAsCompleted, handleTodoDelete } = useTodos();
+
+	const searchParams = useSearchParams();
+	const todosFilter = searchParams.get('todos');
+
 	let filterTodos = todos;
 	console.log(filterTodos);
+
+	if (todosFilter === 'active') {
+		filterTodos = filterTodos.filter((todo) => !todo.completed);
+	} else if (todosFilter === 'completed') {
+		filterTodos = filterTodos.filter((todo) => todo.completed);
+	}
+
 	return (
 		<ul>
 			{filterTodos.map((todo) => {
